@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { LuckyDog } from "../dogs/LuckyDog";
 import { getDogs } from "../dogs/dogsSlice";
+import { getServicesForLuckyDog } from './servicesSlice';
 import { useEffect } from "react";
 import { useGetServicesQuery } from '../../store/apiSlice';
 
@@ -13,7 +14,7 @@ export function ServicesPage() {
   const myDogs = useSelector((state) => state.dogs.myDogs);
   const hasDogs = useSelector((state) => state.dogs.hasDogs);
   const luckyDog = useSelector((state) => state.dogs.luckyDog);
-  const myServices = services;
+  const myServices = useSelector( (state) => getServicesForLuckyDog(state, services) );
 
   useEffect(() => {
     if (!hasDogs) dispatch(getDogs());
