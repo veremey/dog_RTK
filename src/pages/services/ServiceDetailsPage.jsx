@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux";
+import {useGetServiceQuery} from "../../store/apiSlice"
 import { useParams } from "react-router";
-import { getServiceById } from "./servicesSlice";
 
 export function ServiceDetailsPage() {
   const { serviceId } = useParams();
-  const service = useSelector((state) => getServiceById(state, serviceId));
+  const {data: service } = useGetServiceQuery(serviceId);
   return (
     <div className="page">
       {!service ? (

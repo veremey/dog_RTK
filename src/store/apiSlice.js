@@ -5,10 +5,12 @@ export const api =  createApi({
   endpoints: (builder) => ({
     getServices: builder.query({
       query: () => "/services",
-    })
+    }),
+    getService: builder.query({query: (id) => "/services/" + id})
   }),
 })
 
-export const {
-  useGetServicesQuery
+export const { 
+  useGetServicesQuery,
+  useGetServiceQuery
 }  = api
