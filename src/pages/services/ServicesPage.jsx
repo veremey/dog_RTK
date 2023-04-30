@@ -1,29 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useGetDogsQuery, useGetServicesQuery } from '../../store/apiSlice';
 
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { LuckyDog } from "../dogs/LuckyDog";
-import { getDogs } from "../dogs/dogsSlice";
 import { getServicesForLuckyDog } from './servicesSlice';
-import { useEffect } from "react";
-import { useGetServicesQuery } from '../../store/apiSlice';
+import { useSelector } from "react-redux";
 
 export function ServicesPage() {
-  const dispatch = useDispatch();
-  const { data: services, isLoading } = useGetServicesQuery()
-  const myDogs = useSelector((state) => state.dogs.myDogs);
-  const hasDogs = useSelector((state) => state.dogs.hasDogs);
+  const { data: services, isLoading: isLoadingServices } = useGetServicesQuery()
+  const { data: myDogs, isLoading: isLoadingDogs } = useGetDogsQuery();
   const luckyDog = useSelector((state) => state.dogs.luckyDog);
-  const myServices = useSelector( (state) => getServicesForLuckyDog(state, services) );
-
-  useEffect(() => {
-    if (!hasDogs) dispatch(getDogs());
-  }, [dispatch, hasDogs]);
+  const myServices = useSelector( (state) => getServicesForLuckyDog(state, services, myDogs) );
 
   return (
     <div className="page">
       <h1>Services</h1>
-      {isLoading || !services ? (
+      {isLoadingServices || isLoadingDogs ? (
         <>
           <Loader />
           <Loader />

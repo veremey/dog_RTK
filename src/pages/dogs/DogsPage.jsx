@@ -1,20 +1,15 @@
-import { useEffect, useRef } from "react";
+import { addDog, getDogs, removeDog } from "./dogsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { removeDog, addDog, getDogs } from "./dogsSlice";
+
 import { LuckyDog } from "./LuckyDog";
+import { useGetDogsQuery } from '../../store/apiSlice';
+import { useRef } from "react";
 
 export function DogsPage() {
   const dialogRef = useRef();
   const dispatch = useDispatch();
-  const dogsReady = useSelector((state) => state.dogs.dogsReady);
-  const myDogs = useSelector((state) => state.dogs.myDogs);
+  const { data: myDogs = {}, isLoading } = useGetDogsQuery();
   const luckyDog = useSelector((state) => state.dogs.luckyDog);
-
-  useEffect(() => {
-    if (dogsReady) return;
-    dispatch(getDogs());
-  }, [dispatch, dogsReady]);
-
   const handleDeleteDog = (e, dog) => {
     e.preventDefault();
     dispatch(removeDog(dog.id));
@@ -42,13 +37,13 @@ export function DogsPage() {
         list of <i>all</i> of your dogs, so that we can provide them with the
         best services possible.
       </p>
-      {Object.values(myDogs).length > 0 && (
+      {!isLoading && Object.values(myDogs).length > 0 && (
         <>
           <p>Choose the lucky dog that will be groomed next.</p>
           <LuckyDog />
         </>
       )}
-      {Object.values(myDogs).map((dog) => {
+      {!isLoading && Object.values(myDogs).map((dog) => {
         return (
           <div
             key={dog.id}

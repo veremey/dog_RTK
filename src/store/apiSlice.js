@@ -5,6 +5,7 @@ export const api =  createApi({
   endpoints: (builder) => ({
     getServices: builder.query({query: () => "/services",}),
     getService: builder.query({query: (id) => `/services/${id}`}),
+    getDogs: builder.query({query: () => '/dogs'}),
     makeContact: builder.mutation({
       query: (body) => ({
         url: "contact", 
@@ -18,5 +19,6 @@ export const api =  createApi({
 export const { 
   useGetServicesQuery,
   useGetServiceQuery,
-  useMakeContactMutation
+  useMakeContactMutation,
+  useGetDogsQuery,
 }  = api
