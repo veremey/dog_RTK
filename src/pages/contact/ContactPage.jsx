@@ -1,13 +1,15 @@
+import { useMakeContactMutation } from '../../store/apiSlice';
 import { useState } from "react";
-import * as api from "../../api";
 
 export function ContactPage() {
   const [wasSent, setWasSent] = useState(false);
+  const [makeContact] = useMakeContactMutation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    api.makeContact(Object.fromEntries(formData));
+    makeContact(Object.fromEntries(formData));
     form.reset();
 
     // show a short lived message

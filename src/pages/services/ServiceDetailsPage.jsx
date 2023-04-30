@@ -1,18 +1,22 @@
-import {useGetServiceQuery} from "../../store/apiSlice"
+import { Loader } from "../../components/Loader";
+import { useGetServiceQuery } from "../../store/apiSlice";
 import { useParams } from "react-router";
 
 export function ServiceDetailsPage() {
   const { serviceId } = useParams();
-  const {data: service } = useGetServiceQuery(serviceId);
+  const { data: service, isLoading, error } = useGetServiceQuery(serviceId);
   return (
     <div className="page">
-      {!service ? (
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
         <>
-          <h1>Service Details</h1>
-          <p>Could not find service {serviceId}</p>{" "}
+          <h1>
+            ({error.status}) Could not find service: {serviceId}
+          </h1>
+          <p className="error">{error.data.message}</p>
         </>
-      ) : null}
-      {service ? (
+      ) : (
         <>
           <h1>{service.title} Service</h1>
           <div className="card">
@@ -40,7 +44,7 @@ export function ServiceDetailsPage() {
             </div>
           </div>
         </>
-      ) : null}
+      )}
     </div>
   );
 }
