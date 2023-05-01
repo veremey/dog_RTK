@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getAge, getSize } from '../pages/dogs/dogsSlice';
 
 export const api =  createApi({
+  keepUnusedDataFor: 5,
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
     getServices: builder.query({query: () => "/services",}),
