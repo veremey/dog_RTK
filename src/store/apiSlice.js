@@ -50,10 +50,11 @@ export const api =  createApi({
       onQueryStarted(id, { dispatch, queryFulfilled }) {
         const update = dispatch(api.util.updateQueryData("getDogs", undefined, (dogs) => {
           delete dogs[id];
-        }));
+        })
+        );
         queryFulfilled.catch(() => {
           update.undo();
-        }),
+        });
       },
     }),
   }),
