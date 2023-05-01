@@ -4,6 +4,8 @@ import { getAge, getSize } from '../pages/dogs/dogsSlice';
 export const api =  createApi({
   keepUnusedDataFor: 5,
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  refetchOnFocus: true, 
+  refetchOnReconnect: true, 
   tagTypes: ["Services", "Dogs"],
   endpoints: (builder) => ({
     getServices: builder.query({query: () => "/services",}),
