@@ -40,8 +40,19 @@ export const api =  createApi({
         body
       }), 
       invalidatesTags: ["Dogs"],
-
-    })
+    }),
+    removeDog: builder.mutation({
+      query: (id) => ({
+        url: `/dogs/${id}`,
+        method: "DELETE", 
+      }),
+      invalidatesTags: ["Dogs"],
+      onQueryStarted(id, { dispatch }) {
+        dispatch(api.util.updateQueryData("getDogs",undefined, (dogs) => {
+          delete dogs[id];
+        }))
+      },
+    }),
   }),
 })
 
@@ -51,4 +62,5 @@ export const {
   useMakeContactMutation,
   useGetDogsQuery,
   useAddDogMutation,
+  useRemoveDogMutation,
 }  = api
