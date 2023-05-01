@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export function ServicesPage() {
   const { data: services, isLoading: isLoadingServices } = useGetServicesQuery()
-  const { data: myDogs, isLoading: isLoadingDogs } = useGetDogsQuery();
+  const { data: myDogs = {}, isLoading: isLoadingDogs } = useGetDogsQuery();
   const luckyDog = useSelector((state) => state.dogs.luckyDog);
   const myServices = useSelector( (state) => getServicesForLuckyDog(state) );
 
