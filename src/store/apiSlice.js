@@ -4,6 +4,7 @@ import { getAge, getSize } from '../pages/dogs/dogsSlice';
 export const api =  createApi({
   keepUnusedDataFor: 5,
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  tagTypes: ["Services", "Dogs"],
   endpoints: (builder) => ({
     getServices: builder.query({query: () => "/services",}),
     getService: builder.query({query: (id) => `/services/${id}`}),
@@ -19,8 +20,9 @@ export const api =  createApi({
             age: getAge(dog.dob)
           }
         }
-        return dogs;
-      }
+        return allDogs;
+      },
+      providesTags: ["Dogs"],
     }),
     makeContact: builder.mutation({
       query: (body) => ({
@@ -34,7 +36,9 @@ export const api =  createApi({
         url: "/dogs",
         method: "POST",
         body
-      })
+      }), 
+      invalidatesTags: ["Dogs"],
+
     })
   }),
 })
