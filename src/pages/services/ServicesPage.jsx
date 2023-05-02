@@ -1,9 +1,8 @@
-import { useGetDogsQuery, useGetServicesQuery } from '../../store/apiSlice';
+import { getServicesForLuckyDog, useGetDogsQuery, useGetServicesQuery } from '../../store/apiSlice';
 
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { LuckyDog } from "../dogs/LuckyDog";
-import { getServicesForLuckyDog } from './servicesSlice';
 import { useSelector } from "react-redux";
 
 export function ServicesPage() {
