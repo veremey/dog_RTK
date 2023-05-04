@@ -47,9 +47,9 @@ html {
 }
 
 .topNav {
-  background-color: #ffaf08;
+  background-color: #F2F2F2;
   height: 5em;
-  border-bottom: 2px solid mediumpurple;
+  border-bottom: 2px solid rgb(147, 112, 216);
   position: fixed;
   width: 100%;
 }

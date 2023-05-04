@@ -7,7 +7,7 @@ export function TopNav() {
   const prefetchDogs = api.usePrefetch("getDogs");
 
   return (
-    <nav className="topNav">
+    <nav className="topNav" role="navigation">
       <ul>
         <li className={location.pathname === "/" ? "selected" : ""}>
           <Link to="/">Home</Link>
